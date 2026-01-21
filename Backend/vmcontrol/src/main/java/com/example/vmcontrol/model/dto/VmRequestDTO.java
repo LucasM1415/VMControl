@@ -1,0 +1,24 @@
+package com.example.vmcontrol.model.dto;
+
+import jakarta.validation.constraints.*;
+import lombok.Data;
+
+@Data
+public class VmRequestDTO {
+
+    @NotBlank(message = "Nome é obrigatório")
+    @Size(min = 5, message = "Nome deve ter no mínimo 5 caracteres")
+    private String nome;
+
+    @NotNull(message = "CPU é obrigatório")
+    @Min(value = 1, message = "CPU deve ser maior que zero")
+    private Integer cpu;
+
+    @NotNull(message = "Memória é obrigatória")
+    @Min(value = 1, message = "Memória deve ser maior que zero")
+    private Integer memoriaRam;
+
+    @NotNull(message = "Disco é obrigatório")
+    @Min(value = 1, message = "Disco deve ser maior que zero")
+    private Integer tamanhoDisco;
+}
