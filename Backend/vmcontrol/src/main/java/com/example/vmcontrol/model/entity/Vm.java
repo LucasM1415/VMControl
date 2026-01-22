@@ -20,7 +20,7 @@ public class Vm {
 
     @NotBlank(message = "Nome é obrigatório")
     @Size(min = 5, message = "Nome deve ter no mínimo 5 caracteres")
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String nome;
 
     @NotNull(message = "CPU é obrigatório")
@@ -42,14 +42,38 @@ public class Vm {
     @Column(nullable = false)
     private VMStatus status;
 
+
+    @Column(name = "cpu_uso")
+    private Double cpuUso;
+
+    @Column(name = "memoria_uso")
+    private Double memoriaUso;
+
+    @Column(name = "disco_uso")
+    private Double discoUso;
+
+    @Column(name = "ultima_atualizacao")
+    private LocalDateTime ultimaAtualizacao;
+
     @Column(name = "data_criacao", nullable = false, updatable = false)
     private LocalDateTime dataCriacao;
+
 
     @PrePersist
     protected void onCreate() {
         dataCriacao = LocalDateTime.now();
+        ultimaAtualizacao = LocalDateTime.now();
+
         if (status == null) {
             status = VMStatus.STOPPED;
         }
+        if (cpuUso == null) cpuUso = 0.0;
+        if (memoriaUso == null) memoriaUso = 0.0;
+        if (discoUso == null) discoUso = 0.0;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        ultimaAtualizacao = LocalDateTime.now();
     }
 }

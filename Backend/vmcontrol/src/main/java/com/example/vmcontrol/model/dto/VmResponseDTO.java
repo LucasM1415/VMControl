@@ -12,5 +12,9 @@ public class VmResponseDTO {
     private Integer memoriaRam;
     private Integer tamanhoDisco;
     private VMStatus status;
+    private Double cpuUso;
+    private Double memoriaUso;
+    private Double discoUso;
+    private LocalDateTime ultimaAtualizacao;
     private LocalDateTime dataCriacao;
 }
