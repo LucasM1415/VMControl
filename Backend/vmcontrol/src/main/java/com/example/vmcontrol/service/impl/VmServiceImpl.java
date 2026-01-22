@@ -24,7 +24,6 @@ public class VmServiceImpl implements VmService {
     private final VmRepository vmRepository;
     private final VmMapper vmMapper;
 
-
     private static final int LIMITE_MAXIMO_VMS = 5;
 
     @Override
@@ -37,16 +36,17 @@ public class VmServiceImpl implements VmService {
             throw VmValidationException.nomeJaExiste(vmRequest.getNome());
         }
 
+
         validarRecursosVm(vmRequest);
+
 
         Vm vm = vmMapper.toEntity(vmRequest);
         vm.setStatus(VMStatus.STOPPED);
 
 
-        simularUsoRecursos(vm);
+        inicializarUsoRecursos(vm);
 
         Vm savedVm = vmRepository.save(vm);
-
         return vmMapper.toResponseDTO(savedVm);
     }
 
@@ -81,6 +81,7 @@ public class VmServiceImpl implements VmService {
 
         validarRecursosVm(vmRequest);
 
+
         vmMapper.updateEntity(vmRequest, vm);
         Vm updatedVm = vmRepository.save(vm);
 
@@ -100,7 +101,6 @@ public class VmServiceImpl implements VmService {
         Vm vm = vmRepository.findById(id)
                 .orElseThrow(() -> new VmNotFoundException(id));
 
-
         if (status == null) {
             throw VmValidationException.statusInvalido("null");
         }
@@ -108,13 +108,11 @@ public class VmServiceImpl implements VmService {
         vm.setStatus(status);
 
 
-        simularUsoRecursos(vm);
+        atualizarUsoPorStatus(vm);
 
         Vm updatedVm = vmRepository.save(vm);
-
         return vmMapper.toResponseDTO(updatedVm);
     }
-
 
     private void validarLimiteVms() {
         long totalVms = vmRepository.count();
@@ -138,31 +136,33 @@ public class VmServiceImpl implements VmService {
         }
     }
 
-    private void simularUsoRecursos(Vm vm) {
-        // Valores aleatórios baseados no status
+    private void inicializarUsoRecursos(Vm vm) {
+
+        vm.setCpuUso(0.0);
+        vm.setMemoriaUso(0.0);
+        vm.setDiscoUso(5.0);
+    }
+
+    private void atualizarUsoPorStatus(Vm vm) {
+
         switch (vm.getStatus()) {
             case STARTED:
-                vm.setCpuUso(randomEntre(30.0, 80.0));
-                vm.setMemoriaUso(randomEntre(40.0, 90.0));
-                vm.setDiscoUso(randomEntre(10.0, 60.0));
-                break;
 
-            case SUSPENDED:
-                vm.setCpuUso(0.0);
-                vm.setMemoriaUso(randomEntre(70.0, 90.0));
-                vm.setDiscoUso(randomEntre(10.0, 30.0));
+                if (vm.getCpuUso() < 10.0) vm.setCpuUso(10.0);
+                if (vm.getMemoriaUso() < 15.0) vm.setMemoriaUso(15.0);
                 break;
 
             case STOPPED:
-            default:
+
                 vm.setCpuUso(0.0);
                 vm.setMemoriaUso(0.0);
-                vm.setDiscoUso(randomEntre(5.0, 20.0));
+                break;
+
+            case SUSPENDED:
+
+                vm.setCpuUso(0.0);
+                if (vm.getMemoriaUso() < 50.0) vm.setMemoriaUso(50.0);
                 break;
         }
-    }
-
-    private Double randomEntre(Double min, Double max) {
-        return Math.round((min + (Math.random() * (max - min))) * 10.0) / 10.0;
     }
 }
