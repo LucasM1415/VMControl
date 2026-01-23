@@ -1,7 +1,7 @@
 package com.example.vmcontrol.util.mapper;
 
-import com.example.vmcontrol.model.dto.VmRequestDTO;
-import com.example.vmcontrol.model.dto.VmResponseDTO;
+import com.example.vmcontrol.model.dto.VirtualMachine.VmRequestDTO;
+import com.example.vmcontrol.model.dto.VirtualMachine.VmResponseDTO;
 import com.example.vmcontrol.model.entity.Vm;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
