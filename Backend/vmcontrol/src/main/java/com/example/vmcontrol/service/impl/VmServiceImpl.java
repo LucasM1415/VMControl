@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class VmServiceImpl implements VmService {
 
     private final VmRepository vmRepository;
-    private final UsuarioRepository usuarioRepository; // NOVO
+    private final UsuarioRepository usuarioRepository;
     private final VmMapper vmMapper;
 
     private static final int LIMITE_MAXIMO_VMS = 5;
@@ -102,7 +102,7 @@ public class VmServiceImpl implements VmService {
     @Override
     public VmResponseDTO criarVmParaUsuario(VmRequestDTO vmRequest, Long usuarioId) {
         Usuario usuario = buscarUsuarioPorId(usuarioId);
-        validarLimiteVmsPorUsuario(usuario);
+        validarLimiteVms();
         validarNomeUnicoParaUsuario(vmRequest.getNome(), usuarioId, null);
         validarRecursosVm(vmRequest);
 
@@ -112,6 +112,8 @@ public class VmServiceImpl implements VmService {
         inicializarUsoRecursos(vm);
 
         Vm savedVm = vmRepository.save(vm);
+
+
         return vmMapper.toResponseDTO(savedVm);
     }
 
@@ -197,20 +199,7 @@ public class VmServiceImpl implements VmService {
                 .orElseThrow(() -> new UsuarioException("Usuário não encontrado com ID: " + usuarioId));
     }
 
-    private void validarLimiteVmsPorUsuario(Usuario usuario) {
 
-        long vmsDoUsuario = vmRepository.findAll()
-                .stream()
-                .filter(vm -> vm.getUsuario() != null && vm.getUsuario().getId().equals(usuario.getId()))
-                .count();
-
-        if (vmsDoUsuario >= LIMITE_MAXIMO_VMS) {
-            throw new VmValidationException(
-                    String.format("Limite máximo de %d VMs atingido para o usuário. VMs atuais: %d",
-                            LIMITE_MAXIMO_VMS, vmsDoUsuario)
-            );
-        }
-    }
 
     private void validarNomeUnicoParaUsuario(String nome, Long usuarioId, Long vmId) {
 

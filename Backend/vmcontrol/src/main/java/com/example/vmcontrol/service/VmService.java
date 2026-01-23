@@ -13,7 +13,6 @@ public interface VmService {
     VmResponseDTO atualizarVm(Long id, VmRequestDTO vmRequest);
     void deletarVm(Long id);
     VmResponseDTO alterarStatus(Long id, VMStatus status);
-
     VmResponseDTO criarVmParaUsuario(VmRequestDTO vmRequest, Long usuarioId);
     List<VmResponseDTO> listarVmsPorUsuario(Long usuarioId);
     VmResponseDTO buscarVmDoUsuario(Long id, Long usuarioId);
