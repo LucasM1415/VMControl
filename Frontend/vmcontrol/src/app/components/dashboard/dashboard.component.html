@@ -1,0 +1,84 @@
+<div class="min-h-screen bg-gray-100 flex">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-gradient-to-b from-[#5B1ADB] to-[#310E75] text-white flex flex-col shadow-xl">
+    <div class="px-6 py-6 border-b border-white/10 flex items-center gap-3">
+      <img src="/Logo.png" alt="VMControl" class="h-10 w-10" />
+      <div>
+        <p class="text-sm uppercase tracking-wide opacity-80">VMControl</p>
+        <p class="text-lg font-semibold">Dashboard</p>
+      </div>
+    </div>
+
+    <nav class="flex-1 px-4 py-6 space-y-2">
+      <a routerLink="/dashboard" class="flex items-center gap-3 px-3 py-2 rounded-lg bg-white/10 hover:bg-white/15 transition">
+        <span class="text-sm font-medium">Visão geral</span>
+      </a>
+      <a routerLink="/vm" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition">
+        <span class="text-sm font-medium">Máquinas virtuais</span>
+      </a>
+      <a routerLink="/users" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition">
+        <span class="text-sm font-medium">Usuários</span>
+      </a>
+      <a routerLink="/settings" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition">
+        <span class="text-sm font-medium">Configurações</span>
+      </a>
+    </nav>
+
+    <div class="px-4 py-6 border-t border-white/10">
+      <div class="text-sm mb-3">
+        <p class="font-semibold">{{ displayName }}</p>
+        <p class="opacity-80">{{ user?.email || 'sem email' }}</p>
+      </div>
+      <button (click)="logout()" class="w-full py-2 rounded-lg bg-white/20 hover:bg-white/30 text-sm font-medium transition">Sair</button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-8 overflow-y-auto">
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+      <div>
+        <p class="text-sm text-gray-500">Bem-vindo de volta</p>
+        <h1 class="text-3xl font-bold text-gray-800">{{ displayName }}</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button class="px-4 py-2 rounded-lg bg-white text-gray-700 shadow hover:shadow-md border border-gray-200 text-sm font-medium">Atualizar</button>
+        <button class="px-4 py-2 rounded-lg bg-[#5B1ADB] text-white shadow hover:shadow-md text-sm font-medium">Nova VM</button>
+      </div>
+    </div>
+
+    <!-- Stats cards -->
+    <div class="grid gap-6 md:grid-cols-3">
+      <div *ngFor="let stat of stats" class="p-5 rounded-2xl bg-white shadow-sm border border-gray-100">
+        <div class="text-sm text-gray-500 mb-2">{{ stat.label }}</div>
+        <div class="flex items-end justify-between">
+          <div class="text-3xl font-bold text-gray-900">{{ stat.value }}</div>
+          <span class="text-xs px-2 py-1 rounded-full bg-green-100 text-green-700">{{ stat.trend }}</span>
+        </div>
+        <div class="h-2 mt-3 rounded-full bg-gradient-to-r" [ngClass]="stat.color"></div>
+      </div>
+    </div>
+
+    <!-- Placeholder content -->
+    <div class="mt-8 grid gap-6 lg:grid-cols-3">
+      <div class="lg:col-span-2 p-6 rounded-2xl bg-white border border-gray-100 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-lg font-semibold text-gray-800">Atividades recentes</h2>
+          <a class="text-sm text-[#5B1ADB] hover:text-[#4A15B8]" routerLink="/logs">Ver tudo</a>
+        </div>
+        <ul class="space-y-3 text-sm text-gray-700">
+          <li class="flex justify-between"><span>VM-01 reiniciada</span><span class="text-gray-500">há 5m</span></li>
+          <li class="flex justify-between"><span>Backup concluído</span><span class="text-gray-500">há 18m</span></li>
+          <li class="flex justify-between"><span>Nova VM criada</span><span class="text-gray-500">há 1h</span></li>
+        </ul>
+      </div>
+      <div class="p-6 rounded-2xl bg-white border border-gray-100 shadow-sm">
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">Status</h2>
+        <div class="space-y-3 text-sm text-gray-700">
+          <div class="flex justify-between"><span>Cluster</span><span class="text-green-600 font-semibold">OK</span></div>
+          <div class="flex justify-between"><span>Armazenamento</span><span class="text-green-600 font-semibold">78% livre</span></div>
+          <div class="flex justify-between"><span>Rede</span><span class="text-amber-600 font-semibold">Latência 35ms</span></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

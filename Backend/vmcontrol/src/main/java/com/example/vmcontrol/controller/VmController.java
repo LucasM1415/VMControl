@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/vms")
+@RequestMapping("/v1/vms")
 @RequiredArgsConstructor
 @Tag(name = "Máquinas Virtuais", description = "API para gerenciamento de máquinas virtuais")
 public class VmController {
