@@ -3,12 +3,13 @@ VMControl - Gerenciador de Máquinas Virtuais
 VMControl é uma aplicação web completa para gerenciamento de máquinas virtuais, com backend em Spring Boot e frontend em Angular.
 
 🏗️ Arquitetura
-text
+``` 
 VMControl/
 ├── Backend/           # API Spring Boot
 │   └── vmcontrol/
 ├── Frontend/          # Aplicação Angular
 │   └── vmcontrol/
+``` 
 🚀 Pré-requisitos
 Java 17 ou superior
 
@@ -24,7 +25,9 @@ Inicie o serviço do PostgreSQL
 Crie o banco de dados manualmente:
 
 sql
+``` 
 CREATE DATABASE vmcontrol_db;
+``` 
 Verifique se o PostgreSQL está rodando na porta 5432
 
 Pronto! O JPA criará as tabelas automaticamente
@@ -33,7 +36,9 @@ Pronto! O JPA criará as tabelas automaticamente
 Navegue até o diretório do backend:
 
 bash
+``` 
 cd Backend/vmcontrol
+``` 
 Execute o projeto de uma destas formas:
 
 Via IDE: Importe como projeto Maven e execute VmcontrolApplication.java
@@ -41,34 +46,38 @@ Via IDE: Importe como projeto Maven e execute VmcontrolApplication.java
 Via linha de comando:
 
 bash
+``` 
 ./mvnw spring-boot:run
+``` 
 Backend rodando em: http://localhost:8080
 
 🖥️ Configuração do Frontend (Angular)
 Navegue até o diretório do frontend:
 
 bash
+``` 
 cd Frontend/vmcontrol
+``` 
 Instale as dependências:
 
 bash
+``` 
 npm install
+``` 
 Inicie a aplicação:
 
 bash
+``` 
 npm start
-ou se tiver Angular CLI:
-
-bash
-ng serve
+``` 
 Frontend rodando em: http://localhost:4200
 
 📚 Documentação da API
 Acesse a documentação interativa da API:
 
-🔗 Swagger UI: http://localhost:8080/api/swagger-ui/index.html#
+🔗 Swagger UI: ``` http://localhost:8080/api/swagger-ui/index.html#``` 
 
-🔧 Configuração Personalizada (Opcional)
+🔧 Configuração Personalizada
 Crie application.properties no backend para configurações customizadas:
 
 properties
@@ -87,9 +96,11 @@ sudo service postgresql start
 Dependências Frontend
 bash
 # Se houver problemas no npm install
+``` 
 rm -rf node_modules package-lock.json
 npm cache clean --force
 npm install
+``` 
 Portas em Uso
 Backend: 8080
 
@@ -98,7 +109,7 @@ Frontend: 65534
 PostgreSQL: 5432
 
 📁 Estrutura do Projeto
-text
+``` 
 Backend/vmcontrol/
 ├── src/main/java/
 │   └── com/vmcontrol/
@@ -107,8 +118,11 @@ Backend/vmcontrol/
 │       ├── repository/    # Acesso a dados
 │       ├── model/         # Entidades JPA
 │       └── config/        # Configurações
-└── pom.xml               # Dependências Maven
-
+├── build.gradle           # Dependências Gradle
+├── gradlew                # Gradle Wrapper
+└── settings.gradle        # Configurações do projeto
+```
+``` 
 Frontend/vmcontrol/
 ├── src/app/
 │   ├── components/        # Componentes Angular
@@ -117,6 +131,7 @@ Frontend/vmcontrol/
 │   └── app.module.ts      # Módulo principal
 ├── package.json          # Dependências npm
 └── angular.json          # Configuração Angular
+``` 
 🛠️ Tecnologias Utilizadas
 Backend
 Spring Boot 17
@@ -132,15 +147,13 @@ Angular 17
 
 TypeScript
 
-RxJS
-
 HTML5/CSS3
 
 🔗 Acesso à Aplicação
-Frontend: http://localhost:65534
+Frontend:```  http://localhost:65534``` 
 
-Backend API: http://localhost:8080/api
+Backend API:```  http://localhost:8080/api``` 
 
-Swagger: http://localhost:8080/api/swagger-ui/index.html#
+Swagger: ``` http://localhost:8080/api/swagger-ui/index.html#``` 
 
-Banco de Dados: PostgreSQL em localhost:5432/vmcontrol_db
+Banco de Dados: PostgreSQL em ``` localhost:5432/vmcontrol_db``` 
