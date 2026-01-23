@@ -42,9 +42,7 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
 
-                        .requestMatchers("/api/v1/auth/**").permitAll()
-
-                        // Swagger/OpenAPI
+                        .requestMatchers("/v1/auth/**").permitAll()
                         .requestMatchers(
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
@@ -56,8 +54,8 @@ public class SecurityConfig {
                                 "/configuration/**"
                         ).permitAll()
 
-                        .requestMatchers("/api/v1/vms/**").authenticated()  // VMs
-                        .requestMatchers("/api/v1/dashboard/**").authenticated()  // Dashboard
+                        .requestMatchers("/api/v1/vms/**").authenticated()
+                        .requestMatchers("/api/v1/dashboard/**").authenticated()
 
                         .anyRequest().authenticated()
                 )
@@ -70,7 +68,10 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:4200"));
+        configuration.setAllowedOrigins(Arrays.asList(
+                "http://localhost:65534",
+                "http://localhost:4200"
+        ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept", "X-Requested-With"));
         configuration.setExposedHeaders(List.of("Authorization"));
