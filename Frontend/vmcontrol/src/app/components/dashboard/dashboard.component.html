@@ -1,0 +1,45 @@
+<div class="min-h-screen bg-gray-100 flex">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-gradient-to-b from-[#5B1ADB] to-[#310E75] text-white flex flex-col shadow-xl">
+    <div class="px-6 py-6 border-b border-white/10 flex items-center gap-3">
+      <img src="/Logo.png" alt="VMControl" class="h-10 w-10" />
+      <div>
+        <p class="text-sm uppercase tracking-wide opacity-80">VMControl</p>
+        <p class="text-lg font-semibold">Dashboard</p>
+      </div>
+    </div>
+
+    <nav class="flex-1 px-4 py-6 space-y-2">
+      <a routerLink="/dashboard" routerLinkActive="bg-white/10" [routerLinkActiveOptions]="{ exact: true }" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/15 transition">
+        <span class="text-sm font-medium">Visão geral</span>
+      </a>
+      <a routerLink="/dashboard/vm" routerLinkActive="bg-white/10" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/15 transition">
+        <span class="text-sm font-medium">Máquinas virtuais</span>
+      </a>
+      <a routerLink="/dashboard/minhas-vms" routerLinkActive="bg-white/10" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/15 transition">
+        <span class="text-sm font-medium">Minhas máquinas virtuais</span>
+      </a>
+    </nav>
+
+    <div class="px-4 py-6 border-t border-white/10">
+      <div class="text-sm mb-3">
+        <a id="userRefreshLink" routerLink="/dashboard/minhas-vms" class="block cursor-pointer">
+          <p class="font-semibold">{{ displayName }}</p>
+          <p class="opacity-80">{{ user?.email || 'sem email' }}</p>
+        </a>
+      </div>
+      <button (click)="logout()" class="w-full py-2 rounded-lg bg-white/20 hover:bg-white/30 text-sm font-medium transition">Sair</button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-8 overflow-y-auto">
+    <div class="mb-8">
+      <p class="text-sm text-gray-500">Bem-vindo de volta</p>
+      <h1 class="text-3xl font-bold text-gray-800">{{ displayName }}</h1>
+    </div>
+
+    <!-- Child views render here to keep layout -->
+    <router-outlet></router-outlet>
+  </main>
+</div>
