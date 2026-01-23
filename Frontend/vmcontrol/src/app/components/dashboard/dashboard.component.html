@@ -16,18 +16,17 @@
       <a routerLink="/dashboard/vm" routerLinkActive="bg-white/10" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/15 transition">
         <span class="text-sm font-medium">Máquinas virtuais</span>
       </a>
-      <a routerLink="/users" routerLinkActive="bg-white/10" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/15 transition">
-        <span class="text-sm font-medium">Usuários</span>
-      </a>
-      <a routerLink="/settings" routerLinkActive="bg-white/10" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/15 transition">
-        <span class="text-sm font-medium">Configurações</span>
+      <a routerLink="/dashboard/minhas-vms" routerLinkActive="bg-white/10" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/15 transition">
+        <span class="text-sm font-medium">Minhas máquinas virtuais</span>
       </a>
     </nav>
 
     <div class="px-4 py-6 border-t border-white/10">
       <div class="text-sm mb-3">
-        <p class="font-semibold">{{ displayName }}</p>
-        <p class="opacity-80">{{ user?.email || 'sem email' }}</p>
+        <a id="userRefreshLink" routerLink="/dashboard/minhas-vms" class="block cursor-pointer">
+          <p class="font-semibold">{{ displayName }}</p>
+          <p class="opacity-80">{{ user?.email || 'sem email' }}</p>
+        </a>
       </div>
       <button (click)="logout()" class="w-full py-2 rounded-lg bg-white/20 hover:bg-white/30 text-sm font-medium transition">Sair</button>
     </div>
@@ -35,15 +34,9 @@
 
   <!-- Main Content -->
   <main class="flex-1 p-8 overflow-y-auto">
-    <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
-      <div>
-        <p class="text-sm text-gray-500">Bem-vindo de volta</p>
-        <h1 class="text-3xl font-bold text-gray-800">{{ displayName }}</h1>
-      </div>
-      <div class="flex items-center gap-3">
-        <button class="px-4 py-2 rounded-lg bg-white text-gray-700 shadow hover:shadow-md border border-gray-200 text-sm font-medium">Atualizar</button>
-        <button class="px-4 py-2 rounded-lg bg-[#5B1ADB] text-white shadow hover:shadow-md text-sm font-medium">Nova VM</button>
-      </div>
+    <div class="mb-8">
+      <p class="text-sm text-gray-500">Bem-vindo de volta</p>
+      <h1 class="text-3xl font-bold text-gray-800">{{ displayName }}</h1>
     </div>
 
     <!-- Child views render here to keep layout -->

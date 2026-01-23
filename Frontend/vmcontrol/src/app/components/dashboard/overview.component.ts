@@ -20,7 +20,7 @@ export class OverviewComponent implements OnInit {
 
   // Gráfico de barras - Status das VMs
   barChartData: ChartConfiguration<'bar'>['data'] = {
-    labels: ['RUNNING', 'STOPPED', 'SUSPENDED'],
+    labels: ['STARTED', 'STOPPED', 'SUSPENDED'],
     datasets: [
       {
         label: 'Quantidade de VMs',
@@ -95,7 +95,7 @@ export class OverviewComponent implements OnInit {
 
     // Contar VMs por status
     const statusCount = {
-      'RUNNING': 0,
+      'STARTED': 0,
       'STOPPED': 0,
       'SUSPENDED': 0
     };
@@ -113,7 +113,7 @@ export class OverviewComponent implements OnInit {
         {
           ...this.barChartData.datasets[0],
           data: [
-            statusCount['RUNNING'],
+            statusCount['STARTED'],
             statusCount['STOPPED'],
             statusCount['SUSPENDED']
           ]

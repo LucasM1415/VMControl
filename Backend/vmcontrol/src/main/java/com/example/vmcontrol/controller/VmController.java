@@ -40,8 +40,8 @@ public class VmController {
         return ResponseEntity.ok(vms);
     }
 
-    @GetMapping("/admin/{id}")
-    @Operation(summary = "Buscar VM por ID (admin)")
+    @GetMapping("/{id}")
+    @Operation(summary = "Buscar detalhes de uma VM por ID")
     public ResponseEntity<VmResponseDTO> buscarPorId(@PathVariable Long id) {
         VmResponseDTO vm = vmService.buscarPorId(id);
         return ResponseEntity.ok(vm);
