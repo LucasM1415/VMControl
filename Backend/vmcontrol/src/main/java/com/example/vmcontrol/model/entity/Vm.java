@@ -42,7 +42,6 @@ public class Vm {
     @Column(nullable = false)
     private VMStatus status;
 
-
     @Column(name = "cpu_uso")
     private Double cpuUso;
 
@@ -57,6 +56,13 @@ public class Vm {
 
     @Column(name = "data_criacao", nullable = false, updatable = false)
     private LocalDateTime dataCriacao;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id", nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Usuario usuario;
 
 
     @PrePersist
@@ -76,4 +82,20 @@ public class Vm {
     protected void onUpdate() {
         ultimaAtualizacao = LocalDateTime.now();
     }
+
+
+    public void associarUsuario(Usuario usuario) {
+        this.usuario = usuario;
+        if (usuario != null && !usuario.getVms().contains(this)) {
+            usuario.getVms().add(this);
+        }
+    }
+
+    public void desassociarUsuario() {
+        if (this.usuario != null) {
+            this.usuario.getVms().remove(this);
+            this.usuario = null;
+        }
+    }
+
 }

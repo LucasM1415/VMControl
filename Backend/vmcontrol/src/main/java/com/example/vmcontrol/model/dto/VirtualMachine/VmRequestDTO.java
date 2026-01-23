@@ -1,4 +1,4 @@
-package com.example.vmcontrol.model.dto;
+package com.example.vmcontrol.model.dto.VirtualMachine;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -24,4 +24,5 @@ public class VmRequestDTO {
     @Min(value = 20, message = "Disco mínimo é 20GB")
     @Max(value = 2000, message = "Disco não pode exceder 2TB (2000GB)")
     private Integer tamanhoDisco;
+
 }
