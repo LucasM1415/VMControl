@@ -33,8 +33,8 @@ public class VmController {
         return ResponseEntity.status(HttpStatus.CREATED).body(vmResponse);
     }
 
-    @GetMapping("/admin")
-    @Operation(summary = "Listar todas as VMs (admin)")
+    @GetMapping("/todas")
+    @Operation(summary = "Listar todas as VMs")
     public ResponseEntity<List<VmResponseDTO>> listarTodasVms() {
         List<VmResponseDTO> vms = vmService.listarTodasVms();
         return ResponseEntity.ok(vms);

@@ -36,9 +36,4 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/validar")
-    @Operation(summary = "Validar token (endpoint protegido para teste)")
-    public ResponseEntity<String> validarToken() {
-        return ResponseEntity.ok("Token válido");
-    }
 }
